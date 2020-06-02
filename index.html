@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- meu estilo -->
+    <link rel="stylesheet" href="./estilo.css">
+
+   <title>Pokedex - Based in pokeapi</title>
+
+</head>
+
+<body>
+
+
+    <div id="container">
+
+        <div id="alinhamento">
+            <input id="search" type="text">
+            <button id="botoes" onclick="pegaDados()">Pesquisar</button>
+        </div>
+
+        <div id="nomeDoPokemon">
+            <h2 id="nick">Pokemon</h2>
+        </div>
+
+        <div id="pokemon">
+            <img class="imagem" src="./src/pokebola.png" width="33%">
+
+            <div class="habilidades">
+                <p>Habilidade</p>
+                <p>Habilidade</p>
+                <p>Habilidade</p>
+                <p>Habilidade</p>
+            </div>
+
+            
+            <div id="descricao-ability">
+                <div class="texto">Descrição</div>
+            </div>
+        </div>
+
+
+    </div>
+    <!--Js do Axios-->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./app.js">
+    </script>
+</body>
+
+</html>
