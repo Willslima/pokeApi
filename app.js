@@ -1,8 +1,9 @@
 // let pokemon; 
 let guardaDados = 'squirtle';
-
+let reload = () => window.location.reload()
 //INICIO DA FUNÇÃO
 pokemon = () => {
+    
     guardaDados = document.getElementById('search').value
     let h2 = document.getElementById('nick')
     console.log(guardaDados)
@@ -10,27 +11,51 @@ pokemon = () => {
     h2.innerHTML = guardaDados
     axios.get(`https://pokeapi.co/api/v2/pokemon/${guardaDados}`)
         .then(sucesso => {
-            const {name, abilities, sprites } = sucesso.data
-            
-            //Passando as habilidades
-            for(var i = 0; i < abilities.length; i++ ){
-                // console.log(abilities[i].ability.name)
-                let habilidades = abilities[i].ability.name
-                // console.log(habilidades)
-                let hab = document.getElementById('hab'+[i])
-                hab.innerHTML = habilidades
+            const { name, abilities, sprites } = sucesso.data
+
+            //criando habilidades de acordo com a quantidade 
+            for (var i = 0; i < abilities.length; i++) {
+                let habilidade = abilities[i].ability.name
+                let div = document.getElementById('habilidades')
+                let criaHabilidades = document.createElement('p')
+                criaHabilidades.textContent = habilidade
+                div.appendChild(criaHabilidades)
             }
-            
-            console.log(sprites.front_default)//pegando caminho da imagem
-            
+
+            //pegando caminho da imagem
+            console.log(sprites.front_default)
+
             //alterando a imagem do pokemon
             let imagemDoPokemon = sprites.front_default
             let caminhoDaImagem = document.getElementById('imagem')
             console.log(caminhoDaImagem)
             caminhoDaImagem.setAttribute('src', imagemDoPokemon)
-            
-})
-//Fim do then
+
+            //pegando o caminho das habilidades
+            for (var i = 0; i < abilities.length; i++) {
+                let urlDaDescricao = abilities[i].ability.url
+                console.log(urlDaDescricao)//caminho OK
+
+                //chamando as URL'S 
+                axios.get(urlDaDescricao)
+                    .then(sucesso => {
+                       let Descricao = sucesso.data.effect_entries[0].effect
+                       console.log(Descricao)
+
+                       let descricaoIndex = document.getElementById('descricao-ability')
+                       let criaDescricao = document.createElement('p')
+                       criaDescricao.setAttribute('class', 'texto')
+                       criaDescricao.textContent = Descricao
+                    //    criaDescricao.appendChild(descricaoIndex)
+                    descricaoIndex.appendChild(criaDescricao)
+                       console.log(criaDescricao)
+                    })
+
+                    .catch(erro => erro)
+
+            }
+        })
+        //Fim do then
         .catch(erro => console.log(erro))
 }
 
